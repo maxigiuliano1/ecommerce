@@ -2,6 +2,8 @@ package com.project.ecommerce.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "productos")
 public class Producto {
@@ -13,6 +15,10 @@ public class Producto {
     private String imagen;
     private Double precio;
     private int cantidad;
+    @ManyToOne
+    private Usuario usuario;
+    @OneToMany(mappedBy = "productos")
+    private List<DetalleOrden> detalleOrden;
 
     public Producto(){
 
@@ -73,5 +79,21 @@ public class Producto {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<DetalleOrden> getDetalleOrden() {
+        return detalleOrden;
+    }
+
+    public void setDetalleOrden(List<DetalleOrden> detalleOrden) {
+        this.detalleOrden = detalleOrden;
     }
 }

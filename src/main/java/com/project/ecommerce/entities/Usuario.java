@@ -2,7 +2,7 @@ package com.project.ecommerce.entities;
 
 import jakarta.persistence.*;
 
-import javax.management.relation.Role;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -15,10 +15,14 @@ public class Usuario {
     private String email;
     private String direccion;
     private String telefono;
-    private Role rol;
+    private String rol; //despues esto se modificaria por una clase del tipo Rol: nombre del rol
     private String password;
+    @OneToMany(mappedBy = "usuario")
+    List<Producto> productos;
+    @OneToMany(mappedBy = "usuario")
+    List<Orden> ordenes;
 
-    public Usuario(Long id, String nombreCompleto, String username, String email, String direccion, String telefono, Role rol, String password) {
+    public Usuario(Long id, String nombreCompleto, String username, String email, String direccion, String telefono, String rol, String password) {
         this.id = id;
         this.nombreCompleto = nombreCompleto;
         this.username = username;
@@ -80,11 +84,11 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public Role getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(Role rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 
